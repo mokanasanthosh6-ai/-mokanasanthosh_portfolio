@@ -5,7 +5,7 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
-import LearningJourney from './components/LearningJourney';
+import Achievements from './components/Achievements';
 import SocialAndContact from './components/SocialAndContact';
 import Footer from './components/Footer';
 
@@ -13,7 +13,7 @@ export default function App() {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    const sections = ['home', 'about', 'skills', 'projects', 'journey', 'contact'];
+    const sections = ['home', 'about', 'skills', 'projects', 'achievements', 'contact'];
 
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 200;
@@ -36,7 +36,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#080c15] text-[#e2e8f0] selection:bg-cyan-500/20 selection:text-cyan-300 font-sans">
+    <div className="relative min-h-screen bg-black text-zinc-100 selection:bg-white selection:text-black font-sans">
       {/* Dynamic Background Network & Glow */}
       <BackgroundVisual />
 
@@ -57,8 +57,8 @@ export default function App() {
         {/* 4. Projects Section */}
         <Projects />
 
-        {/* 5. Learning Journey Timeline */}
-        <LearningJourney />
+        {/* 5. Key Achievements Section */}
+        <Achievements />
 
         {/* 6. Social Links & Contact Section */}
         <SocialAndContact />

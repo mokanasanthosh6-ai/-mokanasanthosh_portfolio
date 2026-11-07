@@ -1,17 +1,20 @@
 export interface Project {
   id: string;
   title: string;
-  category: 'web' | 'ai';
+  category: 'python' | 'ai' | 'automation' | 'web';
   description: string;
   technologies: string[];
-  demoType?: 'interactive-grade' | 'interactive-vote' | 'ai-showcase';
+  demoType?: 'interactive-vote-python' | 'skillpath-ai' | 'n8n-automation';
   githubUrl?: string;
   liveUrl?: string;
   highlights: string[];
   codeSnippet?: {
-    html: string;
-    js: string;
-    css: string;
+    python?: string;
+    json?: string;
+    prompt?: string;
+    html?: string;
+    js?: string;
+    css?: string;
   };
 }
 
@@ -23,11 +26,14 @@ export interface SkillItem {
   topics: string[];
 }
 
-export interface JourneyStep {
+export interface AchievementItem {
   title: string;
   subtitle: string;
   status: 'completed' | 'in-progress' | 'upcoming';
   description: string;
   iconName: string;
   tag: string;
+  metric?: string;
 }
+
+export type JourneyStep = AchievementItem;

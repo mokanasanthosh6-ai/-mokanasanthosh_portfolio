@@ -22,7 +22,7 @@ export default function BackgroundVisual() {
 
     window.addEventListener('resize', handleResize);
 
-    // Particle nodes representing AI / neural connection network
+    // Particle nodes representing AI / neural connection network in monochrome
     const particleCount = Math.min(Math.floor(width / 22), 55);
     const particles: Array<{
       x: number;
@@ -34,7 +34,7 @@ export default function BackgroundVisual() {
       alpha: number;
     }> = [];
 
-    const colors = ['#38bdf8', '#818cf8', '#a855f7', '#06b6d4'];
+    const colors = ['#ffffff', '#f4f4f5', '#e4e4e7', '#a1a1aa', '#71717a'];
 
     for (let i = 0; i < particleCount; i++) {
       particles.push({
@@ -61,7 +61,7 @@ export default function BackgroundVisual() {
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Draw connecting lines
+      // Draw connecting lines in clean monochrome white
       const maxDistance = 120;
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
@@ -74,7 +74,7 @@ export default function BackgroundVisual() {
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(56, 189, 248, ${lineAlpha})`;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${lineAlpha})`;
             ctx.lineWidth = 0.8;
             ctx.stroke();
           }
@@ -89,7 +89,7 @@ export default function BackgroundVisual() {
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(mouseX, mouseY);
-          ctx.strokeStyle = `rgba(168, 85, 247, ${mouseAlpha})`;
+          ctx.strokeStyle = `rgba(255, 255, 255, ${mouseAlpha})`;
           ctx.lineWidth = 1;
           ctx.stroke();
         }
@@ -127,11 +127,11 @@ export default function BackgroundVisual() {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full opacity-65" />
-      {/* Subtle radial ambient gradient spots */}
-      <div className="absolute -top-32 -left-32 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl" />
-      <div className="absolute top-1/3 -right-32 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl" />
-      <div className="absolute -bottom-32 left-1/3 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full opacity-50" />
+      {/* Subtle monochrome ambient light spots */}
+      <div className="absolute -top-32 -left-32 w-96 h-96 bg-white/[0.02] rounded-full blur-3xl" />
+      <div className="absolute top-1/3 -right-32 w-96 h-96 bg-zinc-800/20 rounded-full blur-3xl" />
+      <div className="absolute -bottom-32 left-1/3 w-96 h-96 bg-white/[0.015] rounded-full blur-3xl" />
     </div>
   );
 }

@@ -7,26 +7,31 @@
   }
   
   body {
-    background-color: #080c15;
-    color: #e2e8f0;
+    background-color: #000000;
+    color: #f4f4f5;
   }
 
   code, pre, .font-mono {
     font-family: 'JetBrains Mono', monospace;
   }
+
+  ::selection {
+    background-color: #ffffff;
+    color: #000000;
+  }
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar in stark black and white */
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #080c15;
+  background: #000000;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #27272a;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #52525b;
 }
