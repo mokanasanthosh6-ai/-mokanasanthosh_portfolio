@@ -1,4 +1,4 @@
-import { ArrowUp, Terminal, Linkedin, Github } from 'lucide-react';
+import { ArrowUp, Terminal, Linkedin, Github, Mail } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
 export default function Footer() {
@@ -58,6 +58,17 @@ export default function Footer() {
               className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-zinc-500 text-zinc-400 hover:text-white transition-colors"
             >
               <Github className="w-4 h-4" />
+            </a>
+            <a
+              id="footer-link-gmail"
+              href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(personalInfo.emailPlaceholder)}&su=Hello%20M.%20Santhosh`}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open in Gmail (Chrome)"
+              title="Open in Gmail (Chrome)"
+              className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-zinc-500 text-zinc-400 hover:text-white transition-colors"
+            >
+              <Mail className="w-4 h-4" />
             </a>
 
             <button

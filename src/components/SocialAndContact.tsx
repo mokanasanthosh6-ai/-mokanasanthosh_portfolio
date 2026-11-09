@@ -63,13 +63,15 @@ export default function SocialAndContact() {
         throw new Error('API submission responded with non-200');
       }
     } catch {
-      // Fallback: If network is blocked or offline, launch pre-filled email client directly to mokanasanthosh6@gmail.com
-      const mailtoUrl = `mailto:${personalInfo.emailPlaceholder}?subject=${encodeURIComponent(
+      // Fallback: Launch direct Gmail compose in Chrome in a new tab to mokanasanthosh6@gmail.com
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+        personalInfo.emailPlaceholder
+      )}&su=${encodeURIComponent(
         formState.subject || `Portfolio Message from ${formState.name}`
       )}&body=${encodeURIComponent(
         `Name: ${formState.name}\nEmail: ${formState.email}\n\nMessage:\n${formState.message}`
       )}`;
-      window.location.href = mailtoUrl;
+      window.open(gmailUrl, '_blank', 'noopener,noreferrer');
       setLastRecipientEmail(formState.email);
       setSentSuccess(true);
     } finally {
@@ -105,7 +107,7 @@ export default function SocialAndContact() {
                 Find Me On
               </h3>
               <p className="text-xs text-zinc-400 mb-6">
-                Connect with me professionally, follow my coding journey, or check out my repositories.
+                Connect with me professionally, follow my coding journey, or email me directly in Gmail.
               </p>
 
               {/* Social Buttons */}
@@ -159,7 +161,35 @@ export default function SocialAndContact() {
                   <ExternalLink className="w-4 h-4 text-zinc-400 group-hover:text-white transition-colors" />
                 </a>
 
-                {/* Email Placeholder Box with 1-Click Copy */}
+                {/* Direct Gmail Card (Opens directly in Gmail on Chrome) */}
+                <a
+                  id="link-social-gmail"
+                  href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+                    personalInfo.emailPlaceholder
+                  )}&su=${encodeURIComponent('Hello M. Santhosh - Collaboration Inquiry')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between p-4 rounded-xl bg-zinc-900/80 border border-zinc-800 hover:border-zinc-500 hover:bg-zinc-850 text-white transition-all duration-200 group shadow-sm"
+                  title="Open directly in Gmail on Chrome"
+                >
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-10 h-10 rounded-lg bg-black border border-zinc-700 flex items-center justify-center text-white shadow-md group-hover:scale-105 group-hover:border-white transition-transform">
+                      <Mail className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-sm text-white group-hover:text-zinc-200 transition-colors flex items-center gap-2">
+                        <span>Gmail</span>
+                        <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300">Opens in Chrome</span>
+                      </div>
+                      <div className="text-xs text-zinc-400 font-mono">
+                        {personalInfo.emailPlaceholder}
+                      </div>
+                    </div>
+                  </div>
+                  <ExternalLink className="w-4 h-4 text-zinc-400 group-hover:text-white transition-colors" />
+                </a>
+
+                {/* Email Box with Direct Gmail Launcher & 1-Click Copy */}
                 <div
                   id="contact-email-container"
                   className="p-4 rounded-xl bg-black border border-zinc-800 text-left"
@@ -169,39 +199,61 @@ export default function SocialAndContact() {
                       <Mail className="w-3.5 h-3.5 text-white" />
                       Direct Inbound Email
                     </span>
-                    <span className="text-[10px] text-zinc-400 font-mono">1-Click Copy</span>
+                    <span className="text-[10px] text-zinc-400 font-mono">Open in Gmail or Copy</span>
                   </div>
 
-                  <div className="flex items-center justify-between gap-2 mt-1">
+                  <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 mt-1">
                     <a
-                      href={`mailto:${personalInfo.emailPlaceholder}`}
-                      className="text-sm font-mono text-white hover:underline truncate font-semibold"
-                      title="Click to send email directly"
+                      href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+                        personalInfo.emailPlaceholder
+                      )}&su=${encodeURIComponent('Hello M. Santhosh - Portfolio Inquiry')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-mono text-white hover:underline truncate font-semibold flex items-center gap-1.5"
+                      title="Click to open directly in Gmail on Chrome"
                     >
-                      {personalInfo.emailPlaceholder}
+                      <span>{personalInfo.emailPlaceholder}</span>
+                      <ExternalLink className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
                     </a>
 
-                    <button
-                      id="btn-copy-email"
-                      type="button"
-                      onClick={handleCopyEmail}
-                      className="px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold flex items-center gap-1.5 shrink-0 transition-colors cursor-pointer border border-zinc-700"
-                    >
-                      {copied ? (
-                        <>
-                          <Check className="w-3.5 h-3.5 text-white" />
-                          <span className="text-white">Copied</span>
-                        </>
-                      ) : (
-                        <>
-                          <Copy className="w-3.5 h-3.5" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+                    <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto justify-end mt-2 sm:mt-0">
+                      <a
+                        id="btn-open-gmail"
+                        href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+                          personalInfo.emailPlaceholder
+                        )}&su=${encodeURIComponent('Hello M. Santhosh - Portfolio Inquiry')}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-zinc-200 text-black text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm"
+                        title="Open directly in Gmail on Chrome"
+                      >
+                        <ExternalLink className="w-3.5 h-3.5" />
+                        <span>Open in Gmail</span>
+                      </a>
+
+                      <button
+                        id="btn-copy-email"
+                        type="button"
+                        onClick={handleCopyEmail}
+                        className="px-2.5 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer border border-zinc-700"
+                        title="Copy email address to clipboard"
+                      >
+                        {copied ? (
+                          <>
+                            <Check className="w-3.5 h-3.5 text-white" />
+                            <span className="text-white">Copied</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-3.5 h-3.5" />
+                            <span>Copy</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
                   </div>
                   <p className="text-[11px] text-zinc-400 mt-2">
-                    Feel free to reach out regarding programming collaborations, tech startup discussions, or project feedback.
+                    Clicking opens Google Chrome directly into Gmail with Santhosh's address pre-filled.
                   </p>
                 </div>
 
@@ -308,6 +360,29 @@ export default function SocialAndContact() {
                     </>
                   )}
                 </button>
+
+                {/* Secondary Action: Direct Gmail Web Compose in Chrome */}
+                <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-2 border-t border-zinc-900 text-[11px] font-mono text-zinc-400">
+                  <span>Prefer sending from Gmail?</span>
+                  <a
+                    id="btn-compose-in-gmail"
+                    href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+                      personalInfo.emailPlaceholder
+                    )}&su=${encodeURIComponent(
+                      formState.subject || (formState.name ? `Portfolio Inquiry from ${formState.name}` : 'Hello M. Santhosh')
+                    )}&body=${encodeURIComponent(
+                      formState.message ? `From: ${formState.name} (${formState.email})\n\n${formState.message}` : ''
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white hover:underline inline-flex items-center gap-1.5 font-medium"
+                    title="Open directly in Gmail in Google Chrome"
+                  >
+                    <Mail className="w-3 h-3 text-white" />
+                    <span>Open in Gmail (Chrome)</span>
+                    <ExternalLink className="w-3 h-3 text-zinc-400" />
+                  </a>
+                </div>
 
                 {/* Sent confirmation notification */}
                 {sentSuccess && (

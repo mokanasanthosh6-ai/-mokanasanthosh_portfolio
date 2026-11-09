@@ -1,16 +1,42 @@
-import { ArrowRight, Mail, FolderGit2, Sparkles, Terminal, Code2, Cpu, Rocket } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowRight, Mail, FolderGit2, Sparkles, Terminal, Code2, Cpu, Rocket, Check, Copy } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
 export default function Hero() {
+  const [activeTab, setActiveTab] = useState<'profile' | 'vision' | 'stack'>('profile');
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyProfile = () => {
+    navigator.clipboard?.writeText(
+      JSON.stringify(
+        {
+          student: 'M. Santhosh',
+          program: 'B.Tech Computer Science Engineering (1st Year)',
+          goal: 'Aspiring AI Engineer & Tech Startup Founder',
+          focus: ['Programming Mastery', 'Generative AI', 'Full-Stack Systems'],
+        },
+        null,
+        2
+      )
+    );
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <section
       id="home"
       className="relative min-h-[90vh] pt-28 pb-16 flex items-center justify-center overflow-hidden"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 w-full relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      {/* Subtle Monochrome Tech Background Grid */}
+      <div 
+        className="absolute inset-0 bg-[linear-gradient(to_right,#27272a15_1px,transparent_1px),linear-gradient(to_bottom,#27272a15_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" 
+      />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           
-          {/* Main Hero Content */}
+          {/* Main Hero Content (Left Column) */}
           <div className="lg:col-span-7 flex flex-col items-start text-left">
             
             {/* Status / Motto Badge */}
@@ -44,7 +70,7 @@ export default function Hero() {
             {/* Short Introduction */}
             <p
               id="hero-intro"
-              className="text-base sm:text-lg text-zinc-300 leading-relaxed max-w-2xl mb-8"
+              className="text-base sm:text-lg text-zinc-300 leading-relaxed max-w-xl mb-8"
             >
               {personalInfo.heroIntro}
             </p>
@@ -89,13 +115,13 @@ export default function Hero() {
 
           </div>
 
-          {/* AI / Coding Tech Visual Card */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end">
+          {/* Beside Name: Sleek Developer Dossier & Terminal View */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-end w-full">
             <div
               id="hero-terminal-card"
               className="w-full max-w-md bg-zinc-950 backdrop-blur-xl border border-zinc-800/90 rounded-2xl p-5 shadow-2xl shadow-black relative overflow-hidden group hover:border-zinc-600 transition-colors"
             >
-              {/* Terminal Title Bar */}
+              {/* Terminal Title Bar with Interactive Tabs */}
               <div className="flex items-center justify-between pb-3 mb-3 border-b border-zinc-800">
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full bg-zinc-700" />
@@ -104,37 +130,99 @@ export default function Hero() {
                 </div>
                 <div className="flex items-center gap-1.5 text-xs font-mono text-zinc-400">
                   <Terminal className="w-3.5 h-3.5 text-white" />
-                  <span>santhosh@founder-cse:~$</span>
+                  <span>santhosh@cse-ai:~$</span>
                 </div>
-                <div className="text-[10px] font-mono text-zinc-500">python3</div>
+                <button
+                  type="button"
+                  onClick={handleCopyProfile}
+                  className="text-zinc-500 hover:text-zinc-300 transition-colors p-1"
+                  title="Copy profile JSON"
+                >
+                  {copied ? <Check className="w-3.5 h-3.5 text-white" /> : <Copy className="w-3.5 h-3.5" />}
+                </button>
+              </div>
+
+              {/* Command Tabs */}
+              <div className="flex items-center gap-1.5 mb-3 bg-zinc-900/60 p-1 rounded-lg border border-zinc-800/60 font-mono text-[11px]">
+                <button
+                  type="button"
+                  onClick={() => setActiveTab('profile')}
+                  className={`flex-1 py-1 px-2 rounded transition-colors text-center ${
+                    activeTab === 'profile' ? 'bg-white text-black font-semibold' : 'text-zinc-400 hover:text-white'
+                  }`}
+                >
+                  profile.json
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveTab('vision')}
+                  className={`flex-1 py-1 px-2 rounded transition-colors text-center ${
+                    activeTab === 'vision' ? 'bg-white text-black font-semibold' : 'text-zinc-400 hover:text-white'
+                  }`}
+                >
+                  startup.py
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveTab('stack')}
+                  className={`flex-1 py-1 px-2 rounded transition-colors text-center ${
+                    activeTab === 'stack' ? 'bg-white text-black font-semibold' : 'text-zinc-400 hover:text-white'
+                  }`}
+                >
+                  stack.cfg
+                </button>
               </div>
 
               {/* Terminal Code Body */}
               <div className="space-y-2.5 font-mono text-xs leading-relaxed">
-                <p className="text-zinc-400 flex items-center gap-2">
-                  <span className="text-white">❯</span> cat profile.json
-                </p>
-                
-                <div className="p-3 rounded-lg bg-black border border-zinc-800/90 text-zinc-300 space-y-1">
-                  <div><span className="text-zinc-400">"student"</span>: <span className="text-white">"M. Santhosh"</span>,</div>
-                  <div><span className="text-zinc-400">"academic_program"</span>: <span className="text-zinc-200">"B.Tech Computer Science"</span>,</div>
-                  <div><span className="text-zinc-400">"technical_target"</span>: <span className="text-white font-semibold">"Programming Expert"</span>,</div>
-                  <div><span className="text-zinc-400">"startup_vision"</span>: <span className="text-white font-semibold">"Launch Own AI Startup"</span>,</div>
-                  <div><span className="text-zinc-400">"active_explorations"</span>: [</div>
-                  <div className="pl-4 text-zinc-300">"Python Systems", "SkillPath AI", "n8n Pipelines", "GenAI"</div>
-                  <div>]</div>
-                </div>
+                {activeTab === 'profile' && (
+                  <>
+                    <p className="text-zinc-400 flex items-center gap-2">
+                      <span className="text-white">❯</span> cat profile.json
+                    </p>
+                    
+                    <div className="p-3 rounded-lg bg-black border border-zinc-800/90 text-zinc-300 space-y-1">
+                      <div><span className="text-zinc-400">"student"</span>: <span className="text-white">"M. Santhosh"</span>,</div>
+                      <div><span className="text-zinc-400">"degree"</span>: <span className="text-zinc-200">"B.Tech Computer Science (1st Year)"</span>,</div>
+                      <div><span className="text-zinc-400">"technical_target"</span>: <span className="text-white font-semibold">"Programming Expert"</span>,</div>
+                      <div><span className="text-zinc-400">"founder_goal"</span>: <span className="text-white font-semibold">"Launch Own AI Startup"</span>,</div>
+                      <div><span className="text-zinc-400">"active_projects"</span>: [</div>
+                      <div className="pl-4 text-zinc-300">"Python Terminal", "SkillPath AI", "n8n AI Automations"]</div>
+                    </div>
+                  </>
+                )}
 
-                <p className="text-zinc-400 flex items-center gap-2 pt-1">
-                  <span className="text-white">❯</span> python3 -m startup.vision
-                </p>
+                {activeTab === 'vision' && (
+                  <>
+                    <p className="text-zinc-400 flex items-center gap-2">
+                      <span className="text-white">❯</span> python3 -m startup.vision
+                    </p>
 
-                <div className="p-3 rounded-lg bg-zinc-900 border border-zinc-700 text-zinc-200 flex items-start gap-2.5">
-                  <Sparkles className="w-4 h-4 text-white mt-0.5 shrink-0" />
-                  <div>
-                    <span className="font-semibold text-white">Dual Mission:</span> Mastering software engineering to expert depth while designing scalable products for my future tech startup.
-                  </div>
-                </div>
+                    <div className="p-3 rounded-lg bg-zinc-900 border border-zinc-700 text-zinc-200 flex items-start gap-2.5">
+                      <Sparkles className="w-4 h-4 text-white mt-0.5 shrink-0" />
+                      <div>
+                        <span className="font-semibold text-white">Dual Ambition:</span>
+                        <p className="mt-1 text-zinc-300">
+                          Deepening programming fundamentals and computer architecture daily to engineer AI systems for my own future tech venture.
+                        </p>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {activeTab === 'stack' && (
+                  <>
+                    <p className="text-zinc-400 flex items-center gap-2">
+                      <span className="text-white">❯</span> cat active_stack.cfg
+                    </p>
+
+                    <div className="p-3 rounded-lg bg-black border border-zinc-800/90 text-zinc-300 space-y-1 text-[11px]">
+                      <div><span className="text-zinc-500">LANGUAGES:</span> <span className="text-white">Python 3, HTML5, CSS3</span></div>
+                      <div><span className="text-zinc-500">AI / AUTOMATION:</span> <span className="text-zinc-200">n8n, GenAI Pipelines, SkillPath AI</span></div>
+                      <div><span className="text-zinc-500">FOUNDATIONS:</span> <span className="text-zinc-300">Logic, Data Structures, Web Standards</span></div>
+                    </div>
+                  </>
+                )}
 
                 {/* Floating Micro Badges */}
                 <div className="flex flex-wrap gap-2 pt-2">
@@ -153,7 +241,7 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* Decorative accent subtle monochrome glow on card */}
+              {/* Subtle monochrome ambient glow */}
               <div className="absolute -bottom-10 -right-10 w-36 h-36 bg-white/[0.03] rounded-full blur-xl pointer-events-none" />
             </div>
           </div>

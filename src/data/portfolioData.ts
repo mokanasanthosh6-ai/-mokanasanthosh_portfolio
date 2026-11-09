@@ -14,9 +14,11 @@ export const personalInfo = {
   heroIntro: "I’m a first-year Computer Science Engineering student on a mission to master software engineering and launch my own tech startup. I learn by building practical solutions—from Python algorithms to deployed AI platforms like SkillPath AI and automated n8n workflows.",
   motto: "Master Programming → Build Scalable Software → Launch My Own Startup",
   emailPlaceholder: "mokanasanthosh6@gmail.com",
+  gmailComposeUrl: "https://mail.google.com/mail/?view=cm&fs=1&to=mokanasanthosh6@gmail.com&su=Hello%20M.%20Santhosh%20-%20Collaboration%20Inquiry",
   socials: {
     linkedin: "https://www.linkedin.com/in/santhosh-mokana-000023418/",
     github: "https://github.com/mokanasanthosh6-ai",
+    gmail: "https://mail.google.com/mail/?view=cm&fs=1&to=mokanasanthosh6@gmail.com&su=Hello%20M.%20Santhosh%20-%20Collaboration%20Inquiry",
   },
   aboutPillars: [
     { label: "Programming Mastery", desc: "Pursuing deep technical expertise in algorithmic problem solving, Python architecture, and systems engineering." },
